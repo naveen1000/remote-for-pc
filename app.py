@@ -4,22 +4,17 @@ from flask_socketio import SocketIO, emit
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-values = {
-    'slider1': 25,
-    'slider2': 0,
-}
-
 @app.route('/')
 def index():
-    return render_template('index.html',**values)
+    return render_template('index.html')
 
 @socketio.on('connect')
 def test_connect():
-    emit('after connect',  {'data':'Lets dance'})
+    emit('after connect',  {'data':'Its connected'})
 
-@socketio.on('Slider value changed')
+@socketio.on('message')
 def value_changed(message):
-    values[message['who']] = message['data']
+    print(message)
     emit('update value', message, broadcast=True)
 
 if __name__ == '__main__':
