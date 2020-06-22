@@ -10,16 +10,15 @@
 		$(document).ready(function(){
 
 			// sending a connect request to the server.
-			var socket = io.connect('http://localhost:5000');
-
+			var socket = io.connect('http://192.168.43.205:5000');
+			//var socket = io.connect('http://localhost:5000');
 			// An event handler for a change of value 
 			$('#form').submit(function(event) {
 				event.preventDefault();
 				//window.history.back();
-                socket.emit('message', {data: $('#fname').val()});
+                socket.emit('message', $('#fname').val());
                 return false;
             });
-
             socket.on('after connect', function(msg){
             	console.log('After connect', msg);
             });
@@ -44,6 +43,10 @@
 				console.log('right');
 				socket.emit('message', 'down');
 			});
+			$('#autosend').keypress((e)=>{
+				console.log(e.key);
+				socket.emit('message', e.key );
+			})
 		});
 		
 	</script>
@@ -53,13 +56,14 @@
 		<h1 >Message</h1>
 		<form class="mt-5" id="form">
 		  <label for="fname">First name:</label><br>
-		  <input class="sync" type="text" id="fname" name="fname"><br>
+		  <input class="sync" type="text" placeholder="Type to Send" id="fname" name="fname"><br>
 		  <input class="btn" type="submit" value="Submit">
 		</form>	
 		<button id="up">Up</button><br>
 		<button id="left">Left</button>
 		<button id="right">Right</button><br>
-		<button id="down">Down</button>
+		<button id="down">Down</button><br>
+		<input class="autosend" type="text" placeholder="Auto Send" id="autosend" name="autosend"><br>
 
 	</div>
 </body>
