@@ -10,9 +10,11 @@
 		$(document).ready(function(){
 
 			// sending a connect request to the server.
-			var socket = io.connect('http://192.168.43.205:5000');
-			//var socket = io.connect('http://localhost:5000');
-			// An event handler for a change of value 
+
+				var socket = io.connect('http://192.168.43.205:5000');				
+	
+			//	var socket = io.connect('http://localhost:5000');
+	
 			$('#form').submit(function(event) {
 				event.preventDefault();
 				//window.history.back();
@@ -43,10 +45,12 @@
 				console.log('right');
 				socket.emit('message', 'down');
 			});
-			$('#autosend').keypress((e)=>{
-				console.log(e.key);
-				socket.emit('message', e.key );
+			$('#autosend').keydown((e)=>{
+				console.log(e.keyCode);
+				socket.emit('message', e.keyCode );
 			})
+
+			
 		});
 		
 	</script>

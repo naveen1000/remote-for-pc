@@ -15,7 +15,7 @@ def test_connect():
 @socketio.on('message')
 def value_changed(message):
     print(message)
-    keyboard.send(message)
+    #keyboard.send(message)
     #emit('update value', message, broadcast=True)
 
 if __name__ == '__main__':
